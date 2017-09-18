@@ -1,0 +1,43 @@
+version: '3'
+services:
+  framework:
+    build: ../framework
+    image: fdudatamining:framework
+    volumes:
+      - ./work:/home/jovyan/work
+    ports:
+      - 8888:8888
+  database:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: "test_pass"
+      MYSQL_USER: "test"
+      MYSQL_PASS: "pass"
+    volumes:
+      - data:/var/lib/mysql/data
+    ports:
+      - 3306:3306
+  web:
+    image: nginx:alpine
+    depends_on:
+      - framework
+      - phpmyadmin
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    ports:
+      - 80:80
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: "test_pass"
+      MYSQL_USER: "test"
+      MYSQL_PASS: "pass"
+    external_links:
+      - database:db
+    volumes:
+      - session:/session
+    ports:
+      - 8080:80
+volumes:
+  data:
+  session:
