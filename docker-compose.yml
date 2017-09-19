@@ -10,9 +10,7 @@ services:
   database:
     image: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: "test_pass"
-      MYSQL_USER: "test"
-      MYSQL_PASS: "pass"
+      - MYSQL_ROOT_PASSWORD
     volumes:
       - data:/var/lib/mysql/data
     ports:
@@ -29,9 +27,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      MYSQL_ROOT_PASSWORD: "test_pass"
-      MYSQL_USER: "test"
-      MYSQL_PASS: "pass"
+      - MYSQL_ROOT_PASSWORD
     external_links:
       - database:db
     volumes:
