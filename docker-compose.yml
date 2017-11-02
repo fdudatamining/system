@@ -14,7 +14,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD
     volumes:
-      - data:/var/lib/mysql/data
+      - database:/var/lib/mysql/data
     ports:
       - 3306:3306
   web:
@@ -30,6 +30,8 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
       - MYSQL_ROOT_PASSWORD
+    depends_on:
+      - database
     external_links:
       - database:db
     volumes:
@@ -44,6 +46,9 @@ services:
       - MYSQL_ROOT_PASSWORD
     depends_on:
       - database
+    volumes:
+      - data:/root
 volumes:
   data:
+  database:
   session:

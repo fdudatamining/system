@@ -27,3 +27,11 @@ MYSQL_ROOT_PASSWORD=your_secret_password python ./setup.py install
 ```
 
 Work should be saved in `./work`, the database is saved in a docker volume named `data`. PhpMyAdmin sessions are saved in a docker volume named `sessions`.
+
+## Cleanup
+
+Note that volumes are persistent accross instances--if something failed and you want a clean slate, execute:
+
+```
+docker-compose rm -v
+```
