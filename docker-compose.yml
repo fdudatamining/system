@@ -3,6 +3,8 @@ services:
   framework:
     build: ../framework
     image: fdudatamining:framework
+    environment:
+      - MYSQL_ROOT_PASSWORD
     volumes:
       - ./work:/home/jovyan/work
     ports:
@@ -34,6 +36,14 @@ services:
       - session:/session
     ports:
       - 8080:80
+  data:
+    build: ../data
+    image: fdudatamining:data
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_ROOT_PASSWORD
+    depends_on:
+      - database
 volumes:
   data:
   session:
