@@ -12,7 +12,6 @@ cd fdudatamining
 # Clone relevant repositories
 git clone https://github.com/fdudatamining/system.git
 git clone https://github.com/fdudatamining/framework.git
-git clone https://github.com/fdudatamining/data.git
 
 # Create random secure password for database root
 cd system
@@ -20,8 +19,10 @@ MYSQL_ROOT_PASSWORD=your_secret_password docker-compose up
 # Wait for the system to be completely built and come up
 
 # Populate the database with data
+git clone https://github.com/fdudatamining/data.git
 cd data
-MYSQL_ROOT_PASSWORD=your_secret_password python ./setup.py install
+docker build -t fdudatamining:data .
+docker run -e MYSQL_ROOT_PASSWORD=your_secret_password -it fdudatamining:data
 
 # Point your favorite web browser to http://localhost/
 ```

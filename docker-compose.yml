@@ -38,16 +38,18 @@ services:
       - session:/session
     ports:
       - 8080:80
-  data:
-    build: ../data
-    image: fdudatamining:data
-    environment:
-      - MYSQL_HOST=database
-      - MYSQL_ROOT_PASSWORD
-    depends_on:
-      - database
-    volumes:
-      - data:/root
+  # NOTE: https://github.com/docker/compose/issues/1896
+  #       No way to implement this yet in a more convinient way
+  # data:
+  #   build: ../data
+  #   image: fdudatamining:data
+  #   environment:
+  #     - MYSQL_HOST=database
+  #     - MYSQL_ROOT_PASSWORD
+  #   depends_on:
+  #     - database
+  #   volumes:
+  #     - data:/root
 volumes:
   data:
   database:
