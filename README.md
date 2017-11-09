@@ -4,6 +4,8 @@ The purpose of this repository is to document and backup for easy reproduction, 
 
 ## Installation
 
+Only dependency needed to set up this system is `docker` which prepares all the other dependencies in a reproducable way.
+
 ```
 # Create working directory
 mkdir -p fdudatamining
@@ -13,16 +15,19 @@ cd fdudatamining
 git clone https://github.com/fdudatamining/system.git
 git clone https://github.com/fdudatamining/framework.git
 
-# Create random secure password for database root
+# Start system
 cd system
 MYSQL_ROOT_PASSWORD=your_secret_password docker-compose up
 # Wait for the system to be completely built and come up
 
-# Populate the database with data
+# Populate the database with our cleaned open healthcare data (optional)
+#  NOTE: Plenty of RAM (~24G) and about 16GB of free storage is recommended to process all the data
 git clone https://github.com/fdudatamining/data.git
 cd data
-docker build -t fdudatamining:data .
-docker run -e MYSQL_ROOT_PASSWORD=your_secret_password -it fdudatamining:data
+docker-compose build
+MYSQL_ROOT_PASSWORD=your_secret_password docker-compose run data
+# Clear cache to free up space (optional)
+rm -r .cache
 
 # Point your favorite web browser to http://localhost/
 ```
