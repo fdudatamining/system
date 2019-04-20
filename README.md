@@ -26,6 +26,7 @@ git clone https://github.com/fdudatamining/data.git
 cd data
 docker-compose build
 MYSQL_ROOT_PASSWORD=your_secret_password docker-compose run data
+# Note you can also specify a single table of interest at the end of this command
 # Clear cache to free up space (optional)
 rm -r .cache
 
